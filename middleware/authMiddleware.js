@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
  
-const protect =(req,res,next)=>{
+const protect =async (req,res,next)=>{
     let token = req.headers.authorization;
     if(!token || !token.startsWith('Bearer ')){
         return res.status(401).json({message:"Not authorized, no token"});
