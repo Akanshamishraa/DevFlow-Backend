@@ -16,6 +16,7 @@ import workspaceRoutes from './routes/workspaceRoutes.js';
 
   app.use(cors());
   app.use(express.json());
+  
 
   app.use('/api/auth',authRoutes);
   app.use('/api/workspace',workspaceRoutes);
