@@ -38,3 +38,23 @@ export const getWorkspaces = async (req,res)=>{
         })
     }
 }
+export  const getWorkspacesById = async(req,res)=>{
+    try{
+      const workspace = await Workspace.findById (req.params.id);
+      if(!workspace){
+        return res.status(404).json({
+            message:"workspace not found"
+        });
+
+      } 
+      res.status(200).json({
+            message:"workspace fetched successfully",
+            workspace
+      });
+     } catch(error){
+        res.status(500).json({
+            message:"error fetching workspaces",
+            error:error.message
+        });
+    }
+};
