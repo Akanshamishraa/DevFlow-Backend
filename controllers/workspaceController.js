@@ -1,5 +1,6 @@
 import Workspace from '../models/workspace.js'; 
 import jwt from 'jsonwebtoken';
+import User from '../models/user.js';
 
 export const createWorkspace = async(req,res)=>{
     const{name,description}=req.body;
