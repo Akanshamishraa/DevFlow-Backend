@@ -7,6 +7,7 @@ import workspaceRoutes from './routes/workspaceRoutes.js';
 import boardRoutes from './routes/boardRoutes.js';
 import columnRoutes from './routes/columnRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
+import documentRoutes from './routes/documentRoutes.js';
 // config setup (env variables configuration)
  dotenv.config();
  
@@ -26,6 +27,7 @@ import taskRoutes from './routes/taskRoutes.js';
   app.use('/api/board', boardRoutes);
   app.use('/api/column', columnRoutes);
   app.use('/api/task', taskRoutes);
+  app.use('/api/document', documentRoutes);
 
  app.get('/',(req,res)=>{
     res.send('DevFlow API Server running successfully');

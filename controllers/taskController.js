@@ -70,3 +70,31 @@ export const updateTask = async (req, res) => {
         });
     }
 };
+// Delete Task API Controller
+export const deleteTask = async (req, res) => {
+    const { id } = req.params; 
+
+    try {
+        const task = await Task.findById(id);
+        if (!task) {
+            return res.status(404).json({ message: "Task not found" });
+        }
+
+        const columnId = task.column;
+        await Column.findByIdAndUpdate(columnId, {
+            $pull: { tasks: task._id }
+        });
+
+        
+        await Task.findByIdAndDelete(id);
+
+        res.status(200).json({
+            message: "Task deleted successfully"
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Error deleting task",
+            error: error.message
+        });
+    }
+};
