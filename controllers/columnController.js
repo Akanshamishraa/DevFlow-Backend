@@ -29,7 +29,13 @@ export const getColumnsByBoard = async (req, res) => {
 
     try {
        
-        const columns = await Column.find({ board: boardId }).populate('tasks');
+   const columns = await Column.find({ board: boardId }).populate({
+    path: 'tasks',
+    populate: {
+        path: 'assignedTo',
+        select: 'name email'
+    }
+});
 
         res.status(200).json({
             message: "Columns fetched successfully",

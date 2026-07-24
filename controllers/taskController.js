@@ -2,7 +2,7 @@ import Task from '../models/task.js';
 import Column from '../models/column.js';
 
 export const createTask = async (req, res) => {
-    const { title, description, columnId, priority, dueDate } = req.body;
+    const { title, description, columnId, priority, dueDate, assignedTo  } = req.body;
 
     try {
         const newTask = new Task({
@@ -10,6 +10,7 @@ export const createTask = async (req, res) => {
             description,
             column: columnId,
             priority: priority || 'Medium',
+             assignedTo: assignedTo || [], 
             dueDate
         });
 
@@ -18,9 +19,11 @@ export const createTask = async (req, res) => {
             $push: { tasks: newTask._id }
         });
 
+          const populatedTask = await Task.findById(newTask._id)
+            .populate('assignedTo', 'name email');
         res.status(201).json({
             message: "Task created successfully",
-            task: newTask
+            task: populatedTask 
         });
     } catch (error) {
         res.status(500).json({
